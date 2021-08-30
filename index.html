@@ -1,28 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Bookshelf Apps</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <form id="searchBook">
-    <input id="searchBookTitle" type="text"/>
-    <button id="searchSubmit" type="submit">Cari</button>
-  </form>
-  <br/><br/>
-  <form id="inputBook">
-    <label for="inputBookTitle">Judul</label>
-    <input id="inputBookTitle" type="text"/>
-    <label for="inputBookAuthor">Penulis</label>
-    <input id="inputBookAuthor" type="text"/>
-    <label for="inputBookYear">Tahun</label>
-    <input id="inputBookYear" type="number"/>
-    <button id="bookSubmit" type="submit">Tambah buku</button>
-  </form>
-  <br/><br/>
+  <header>
+    <nav>
+      <h2>e-Tilang</h2>
+    </nav>
+  </header>
+
+  <section class="search_section">
+    <form id="searchBook">
+      <input id="searchBookTitle" type="text" placeholder="Cari nama Anda" />
+      <button id="searchSubmit" type="submit">🔍</button>
+    </form>
+  </section>
+
+  <section class="result">
+    <div>
+      <h2>Sudarsono Wijayanto</h2>
+      <p>Rp100.000,0</p>
+    </div>
+    <div>
+      <h3>Sepeda Motor (G-00000)</h3>
+      <p>Tanggal Sidang: </p>
+    </div>
+  </section>
+
+  <!-- <section class="input_section">
+    <form id="inputBook">
+      <label for="inputBookTitle">Judul</label>
+      <input id="inputBookTitle" type="text" />
+      <label for="inputBookAuthor">Penulis</label>
+      <input id="inputBookAuthor" type="text" />
+      <label for="inputBookYear">Tahun</label>
+      <input id="inputBookYear" type="number" />
+      <button id="bookSubmit" type="submit">Tambah buku</button>
+    </form>
+  </section> -->
+
   <div id="bookList" class="book_list" />
   <script src="js/data.js" type="text/javascript"></script>
   <script src="js/dom.js" type="text/javascript"></script>
   <script src="js/main.js" type="text/javascript"></script>
 </body>
+
 </html>

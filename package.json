@@ -1,0 +1,19 @@
+{
+  "name": "e-tilang",
+  "version": "1.0.0",
+  "description": "https://rivanfebrian123.github.io/e-tilang",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Musshal/e-tilang.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Musshal/e-tilang/issues"
+  },
+  "homepage": "https://github.com/Musshal/e-tilang#readme"
+}
