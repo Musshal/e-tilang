@@ -1,4 +1,3 @@
-# bookshelf-apps
-Dicoding: Submission - Belajar Membuat Front-End Web untuk Pemula
+# E-Tilang
 
-https://musshal.github.io/bookshelf-apps/
+https://rivanfebrian123.github.io/e-tilang/apps/
