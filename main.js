@@ -1,21 +1,4 @@
 var LIST_ID = "bookList";
-var BOOK_ID = "bookId";
-
-const addBook = () => {
-  const bookList = document.getElementById(LIST_ID);
-
-  const bookTitle = document.getElementById("inputBookTitle").value;
-  const bookAuthor = document.getElementById("inputBookAuthor").value;
-  const bookYear = document.getElementById("inputBookYear").value;
-
-  const book = makeBook(bookTitle, bookAuthor, bookYear);
-  const bookshelfObject = composeBookObject(bookTitle, bookAuthor, bookYear);
-
-  book[BOOK_ID] = bookshelfObject.id;
-  bookshelf.push(bookshelfObject);
-  bookList.append(book);
-  updateDataToStorage();
-}
 
 const makeBook = (bookTitle, bookAuthor, bookYear) => {
   const textTitle = document.createElement("h3");
@@ -50,3 +33,35 @@ const searchBook = () => {
     }
   });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const submitBookSearch = document.getElementById("searchBook");
+
+  submitBookSearch.addEventListener("submit", (event) => {
+    event.preventDefault();
+    searchBook();
+  });
+});
+
+var xml = new XMLHttpRequest();
+xml.open("GET", 'data.xls', true);
+xml.responseType = 'arraybuffer'
+
+xml.onload = () => {
+  const bookList = document.getElementById(LIST_ID);
+  var workbook = XLSX.read(xml.response, {type: 'array'});
+  var result = [];
+
+  workbook.SheetNames.forEach((name) => {
+    result.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], {header: 1}));
+  });
+
+  result.forEach((i) => {
+    if (typeof i[0] === 'number' && typeof i[3] === 'string') {
+
+      bookList.append(makeBook(i[3], i[4], i[0]))
+    }
+  })
+}
+
+xml.send();
