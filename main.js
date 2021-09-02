@@ -1,4 +1,6 @@
-var LIST_ID = "bookList";
+var xml = new XMLHttpRequest();
+xml.open("GET", 'data.xls', true);
+xml.responseType = 'arraybuffer'
 
 const makeBook = (bookTitle, bookAuthor, bookYear) => {
   const textTitle = document.createElement("h3");
@@ -34,21 +36,8 @@ const searchBook = () => {
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const submitBookSearch = document.getElementById("searchBook");
-
-  submitBookSearch.addEventListener("submit", (event) => {
-    event.preventDefault();
-    searchBook();
-  });
-});
-
-var xml = new XMLHttpRequest();
-xml.open("GET", 'data.xls', true);
-xml.responseType = 'arraybuffer'
-
 xml.onload = () => {
-  const bookList = document.getElementById(LIST_ID);
+  const bookList = document.getElementById('bookList');
   var workbook = XLSX.read(xml.response, {type: 'array'});
   var result = [];
 
@@ -62,6 +51,15 @@ xml.onload = () => {
       bookList.append(makeBook(i[3], i[4], i[0]))
     }
   })
+}
+
+xml.onreadystatechange = () => {
+  const submitBookSearch = document.getElementById("searchBook");
+
+  submitBookSearch.addEventListener("submit", (event) => {
+    event.preventDefault();
+    searchBook();
+  });
 }
 
 xml.send();
