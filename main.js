@@ -61,11 +61,6 @@ http.onload = () => {
   var hasil = [];
 
   if (http.readyState == 4 && http.status == 200) {
-    elCari.addEventListener("submit", (event) => {
-      event.preventDefault();
-      cari();
-    });
-
     for (name of excel.SheetNames) {
       hasil.push(...XLSX.utils.sheet_to_json(excel.Sheets[name], {
         header: 1
@@ -77,6 +72,11 @@ http.onload = () => {
         elDaftar.append(render(i[3], i[7], i[2], i[10] + i[11], i[8], i[9]))
       }
     }
+
+    elCari.addEventListener("submit", (event) => {
+      event.preventDefault();
+      cari();
+    });
   } else {
     location.reload();
   }
