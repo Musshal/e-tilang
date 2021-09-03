@@ -2,7 +2,14 @@ var xml = new XMLHttpRequest();
 xml.open("GET", 'data.xls', true);
 xml.responseType = 'arraybuffer'
 
-const makeBook = (nama, kendaraan, plat, denda, pasal, bukti) => {
+function formatAngka(angka) {
+  bagian = angka.toString().split('.');
+  bagian[0] = bagian[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+
+  return bagian.join(',');
+}
+
+function makeBook(nama, kendaraan, plat, denda, pasal, bukti) {
   const h3Nama = document.createElement("h3");
   h3Nama.innerText = nama;
 
@@ -10,7 +17,7 @@ const makeBook = (nama, kendaraan, plat, denda, pasal, bukti) => {
   pKendaraanPlat.innerText = kendaraan.replace(/spm/gi, "Sepeda Motor").replace(/l.truck/gi, "Light Truck") + ' (' + plat + ')';
 
   const pDenda = document.createElement("p");
-  pDenda.innerText = denda;
+  pDenda.innerText = formatAngka(denda);
 
   const pPasal = document.createElement("p");
   pPasal.innerText = pasal;
@@ -25,7 +32,7 @@ const makeBook = (nama, kendaraan, plat, denda, pasal, bukti) => {
   return container;
 }
 
-const searchBook = () => {
+function searchBook() {
   const inputSearchBook = document.getElementById("searchBookTitle");
   const searchBook = inputSearchBook.value.replace(/\s+/g, '').toLowerCase();
   const books = document.querySelectorAll(".book_item");
