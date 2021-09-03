@@ -14,23 +14,23 @@ function kuncify(kunci) {
 }
 
 function render(nama, kendaraan, plat, denda, pasal, bukti) {
-  const h3Nama = document.createElement("h3");
-  h3Nama.innerText = nama;
+  const elNama = document.createElement("h3");
+  elNama.innerText = nama;
 
-  const pKendaraanPlat = document.createElement("p");
-  pKendaraanPlat.innerText = kendaraan.replace(/spm/gi, "Sepeda Motor").replace(/l.truck/gi, "Light Truck") + ' (' + plat + ')';
+  const elKendaraanPlat = document.createElement("p");
+  elKendaraanPlat.innerText = kendaraan.replace(/spm/gi, "Sepeda Motor").replace(/l.truck/gi, "Light Truck") + ' (' + plat + ')';
 
-  const pDenda = document.createElement("p");
-  pDenda.innerText = angkaify(denda);
+  const elDenda = document.createElement("p");
+  elDenda.innerText = angkaify(denda);
 
-  const pPasal = document.createElement("p");
-  pPasal.innerText = pasal;
+  const elPasal = document.createElement("p");
+  elPasal.innerText = pasal;
 
-  const pBukti = document.createElement("p");
-  pBukti.innerText = bukti;
+  const elBukti = document.createElement("p");
+  elBukti.innerText = bukti;
 
   const container = document.createElement("article");
-  container.append(h3Nama, pKendaraanPlat, pDenda, pPasal, pBukti);
+  container.append(elNama, elKendaraanPlat, elDenda, elPasal, elBukti);
   container.classList.add("item");
 
   return container;
@@ -53,32 +53,33 @@ function cari() {
 }
 
 http.onload = () => {
-  const daftar = document.getElementById('daftar');
+  const elDaftar = document.getElementById('daftar');
+  const elCari = document.getElementById("cari");
   var excel = XLSX.read(http.response, {
     type: 'array'
   });
   var hasil = [];
 
-  for (name of excel.SheetNames) {
-    hasil.push(...XLSX.utils.sheet_to_json(excel.Sheets[name], {
-      header: 1
-    }));
-  }
+  if (http.readyState == 4 && http.status == 200) {
+    elCari.addEventListener("submit", (event) => {
+      event.preventDefault();
+      cari();
+    });
 
-  for (i of hasil) {
-    if (typeof i[0] === 'number' && typeof i[3] === 'string') {
-      daftar.append(render(i[3], i[7], i[2], i[10] + i[11], i[8], i[9]))
+    for (name of excel.SheetNames) {
+      hasil.push(...XLSX.utils.sheet_to_json(excel.Sheets[name], {
+        header: 1
+      }));
     }
+
+    for (i of hasil) {
+      if (typeof i[0] === 'number' && typeof i[3] === 'string') {
+        elDaftar.append(render(i[3], i[7], i[2], i[10] + i[11], i[8], i[9]))
+      }
+    }
+  } else {
+    location.reload();
   }
-}
-
-http.onreadystatechange = () => {
-  const formCari = document.getElementById("cari");
-
-  formCari.addEventListener("submit", (event) => {
-    event.preventDefault();
-    cari();
-  });
 }
 
 http.send();
