@@ -2,33 +2,38 @@ var xml = new XMLHttpRequest();
 xml.open("GET", 'data.xls', true);
 xml.responseType = 'arraybuffer'
 
-const makeBook = (bookTitle, bookAuthor, bookYear) => {
-  const textTitle = document.createElement("h3");
-  textTitle.innerText = bookTitle;
+const makeBook = (nama, kendaraan, plat, denda, pasal, bukti) => {
+  const h3Nama = document.createElement("h3");
+  h3Nama.innerText = nama;
 
-  const textAuthor = document.createElement("p");
-  textAuthor.innerText = bookAuthor;
+  const pKendaraanPlat = document.createElement("p");
+  pKendaraanPlat.innerText = kendaraan.replace(/spm/gi, "Sepeda Motor").replace(/l.truck/gi, "Light Truck") + ' (' + plat + ')';
 
-  const textYear = document.createElement("p");
-  textYear.innerText = bookYear;
+  const pDenda = document.createElement("p");
+  pDenda.innerText = denda;
 
-  const containerDiv = document.createElement("div");
+  const pPasal = document.createElement("p");
+  pPasal.innerText = pasal;
+
+  const pBukti = document.createElement("p");
+  pBukti.innerText = bukti;
 
   const container = document.createElement("article");
+  container.append(h3Nama, pKendaraanPlat, pDenda, pPasal, pBukti);
   container.classList.add("book_item");
-  container.append(textTitle, textAuthor, textYear, containerDiv);
 
   return container;
 }
 
 const searchBook = () => {
   const inputSearchBook = document.getElementById("searchBookTitle");
-  const searchBook = inputSearchBook.value.toLowerCase();
+  const searchBook = inputSearchBook.value.replace(/\s+/g, '').toLowerCase();
   const books = document.querySelectorAll(".book_item");
 
   for (book of books) {
-    const textTitle = book.children[0].textContent.toLowerCase();
-    if (textTitle.indexOf(searchBook) != -1) {
+    const textTitle = book.children[0].textContent.replace(/\s+/g, '').toLowerCase();
+    const textTitle2 = book.children[1].textContent.replace(/\s+/g, '').toLowerCase();
+    if (textTitle.indexOf(searchBook) != -1 || textTitle2.indexOf(searchBook) != -1) {
       book.style.display = "block";
     } else {
       book.style.display = "none";
@@ -51,7 +56,7 @@ xml.onload = () => {
 
   for (i of result) {
     if (typeof i[0] === 'number' && typeof i[3] === 'string') {
-      bookList.append(makeBook(i[3], i[4], i[0]))
+      bookList.append(makeBook(i[3], i[7], i[2], i[10] + i[11], i[8], i[9]))
     }
   }
 }
