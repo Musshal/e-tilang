@@ -52,7 +52,7 @@ function cari() {
   }
 }
 
-http.onload = () => {
+http.onload = function() {
   const elDaftar = document.getElementById('daftar');
   const elCari = document.getElementById("cari");
   var excel = XLSX.read(http.response, {
@@ -73,7 +73,7 @@ http.onload = () => {
       }
     }
 
-    elCari.addEventListener("submit", (event) => {
+    elCari.addEventListener("submit", function(event) {
       event.preventDefault();
       cari();
     });
