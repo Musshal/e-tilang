@@ -60,7 +60,7 @@ http.onload = () => {
   });
   var hasil = [];
 
-  if (http.readyState == 4 && http.status == 200) {
+  if (http.readyState == 4 || http.status == 200) {
     for (name of excel.SheetNames) {
       hasil.push(...XLSX.utils.sheet_to_json(excel.Sheets[name], {
         header: 1
