@@ -1,15 +1,19 @@
-var xml = new XMLHttpRequest();
-xml.open("GET", 'data.xls', true);
-xml.responseType = 'arraybuffer'
+var http = new XMLHttpRequest();
+http.open("GET", 'data.xls', true);
+http.responseType = 'arraybuffer'
 
-function formatAngka(angka) {
+function angkaify(angka) {
   bagian = angka.toString().split('.');
   bagian[0] = bagian[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.')
 
   return bagian.join(',');
 }
 
-function makeBook(nama, kendaraan, plat, denda, pasal, bukti) {
+function kuncify(kunci) {
+  return kunci.replace(/\s+/g, '').toLowerCase()
+}
+
+function render(nama, kendaraan, plat, denda, pasal, bukti) {
   const h3Nama = document.createElement("h3");
   h3Nama.innerText = nama;
 
@@ -17,7 +21,7 @@ function makeBook(nama, kendaraan, plat, denda, pasal, bukti) {
   pKendaraanPlat.innerText = kendaraan.replace(/spm/gi, "Sepeda Motor").replace(/l.truck/gi, "Light Truck") + ' (' + plat + ')';
 
   const pDenda = document.createElement("p");
-  pDenda.innerText = formatAngka(denda);
+  pDenda.innerText = angkaify(denda);
 
   const pPasal = document.createElement("p");
   pPasal.innerText = pasal;
@@ -27,54 +31,54 @@ function makeBook(nama, kendaraan, plat, denda, pasal, bukti) {
 
   const container = document.createElement("article");
   container.append(h3Nama, pKendaraanPlat, pDenda, pPasal, pBukti);
-  container.classList.add("book_item");
+  container.classList.add("item");
 
   return container;
 }
 
-function searchBook() {
-  const inputSearchBook = document.getElementById("searchBookTitle");
-  const searchBook = inputSearchBook.value.replace(/\s+/g, '').toLowerCase();
-  const books = document.querySelectorAll(".book_item");
+function cari() {
+  const kunci = kuncify(document.getElementById("kunci").value);
+  const daftarItem = document.querySelectorAll(".item");
 
-  for (book of books) {
-    const textTitle = book.children[0].textContent.replace(/\s+/g, '').toLowerCase();
-    const textTitle2 = book.children[1].textContent.replace(/\s+/g, '').toLowerCase();
-    if (textTitle.indexOf(searchBook) != -1 || textTitle2.indexOf(searchBook) != -1) {
-      book.style.display = "block";
+  for (item of daftarItem) {
+    const kunci1 = kuncify(item.children[0].textContent);
+    const kunci2 = kuncify(item.children[1].textContent);
+
+    if (kunci1.indexOf(kunci) != -1 || kunci2.indexOf(kunci) != -1) {
+      item.style.display = "block";
     } else {
-      book.style.display = "none";
+      item.style.display = "none";
     }
   }
 }
 
-xml.onload = () => {
-  const bookList = document.getElementById('bookList');
-  var workbook = XLSX.read(xml.response, {
+http.onload = () => {
+  const daftar = document.getElementById('daftar');
+  var excel = XLSX.read(http.response, {
     type: 'array'
   });
-  var result = [];
+  var hasil = [];
 
-  for (name of workbook.SheetNames) {
-    result.push(...XLSX.utils.sheet_to_json(workbook.Sheets[name], {
+  for (name of excel.SheetNames) {
+    hasil.push(...XLSX.utils.sheet_to_json(excel.Sheets[name], {
       header: 1
     }));
   }
 
-  for (i of result) {
+  for (i of hasil) {
     if (typeof i[0] === 'number' && typeof i[3] === 'string') {
-      bookList.append(makeBook(i[3], i[7], i[2], i[10] + i[11], i[8], i[9]))
+      daftar.append(render(i[3], i[7], i[2], i[10] + i[11], i[8], i[9]))
     }
   }
 }
 
-xml.onreadystatechange = () => {
-  const submitBookSearch = document.getElementById("searchBook");
+http.onreadystatechange = () => {
+  const formCari = document.getElementById("cari");
 
-  submitBookSearch.addEventListener("submit", (event) => {
+  formCari.addEventListener("submit", (event) => {
     event.preventDefault();
-    searchBook();
+    cari();
   });
 }
 
-xml.send();
+http.send();
