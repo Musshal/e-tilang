@@ -13,12 +13,12 @@ function kuncify(kunci) {
   return kunci.replace(/\s+/g, '').toLowerCase()
 }
 
-function render(nama, kendaraan, plat, denda, pasal, bukti) {
+function render(nama, kendaraan, noTilang, denda, pasal, bukti) {
   const elNama = document.createElement("h3");
   elNama.innerText = nama;
 
-  const elKendaraanPlat = document.createElement("p");
-  elKendaraanPlat.innerText = kendaraan.replace(/spm/gi, "Sepeda Motor").replace(/l.truck/gi, "Light Truck") + ' (' + plat + ')';
+  const elKendaraanNoTilang = document.createElement("p");
+  elKendaraanNoTilang.innerText = kendaraan.replace(/spm/gi, "Sepeda Motor").replace(/l.truck/gi, "Light Truck") + ' | ' + noTilang;
 
   const elDenda = document.createElement("p");
   elDenda.innerText = angkaify(denda);
@@ -30,7 +30,7 @@ function render(nama, kendaraan, plat, denda, pasal, bukti) {
   elBukti.innerText = bukti;
 
   const container = document.createElement("article");
-  container.append(elNama, elKendaraanPlat, elDenda, elPasal, elBukti);
+  container.append(elNama, elKendaraanNoTilang, elDenda, elPasal, elBukti);
   container.classList.add("item");
 
   return container;
