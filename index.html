@@ -1,28 +1,99 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Bookshelf Apps</title>
+  <link rel="stylesheet" href="assets/styles/style.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 </head>
 
 <body>
-  <form id="searchBook">
-    <input id="searchBookTitle" type="text"/>
-    <button id="searchSubmit" type="submit">Cari</button>
-  </form>
-  <br/><br/>
-  <form id="inputBook">
-    <label for="inputBookTitle">Judul</label>
-    <input id="inputBookTitle" type="text"/>
-    <label for="inputBookAuthor">Penulis</label>
-    <input id="inputBookAuthor" type="text"/>
-    <label for="inputBookYear">Tahun</label>
-    <input id="inputBookYear" type="number"/>
-    <button id="bookSubmit" type="submit">Tambah buku</button>
-  </form>
-  <br/><br/>
+  <header>
+    <nav>
+      <img src="./assets/images/logo-e-tilang.png" alt="logo-e-tilang" width="200px">
+    </nav>
+  </header>
+
+  <section class="search_section">
+    <form id="searchPelanggar">
+      <input id="searchNamaPelanggar" type="text" placeholder="Cari nama / no tilang pelanggar" />
+      <button id="searchSubmit" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </section>
+
+  <section class="result">
+    <div class="top-content">
+      <h3>Sudarsono Wijayanto</h3>
+      <h4>Sepeda Motor (G 5050050)</h4>
+    </div>
+    <div class="bottom-content">
+      <p><span><img src="assets/icons/uang.svg" alt="uang"></span>100.000</p>
+      <p><span><img src="assets/icons/palu.svg" alt="palu"></span>291(1)jo106,281,288(1)</p>
+      <p><span><img src="assets/icons/dompet.svg" alt="dompet"></span>STNK E-6238-OR</p>
+    </div>
+  </section>
+  <section class="result">
+    <div class="top-content">
+      <h3>Sudarsono Wijayanto</h3>
+      <h4>Sepeda Motor (G 5050050)</h4>
+    </div>
+    <div class="bottom-content">
+      <p><span><img src="assets/icons/uang.svg" alt="uang"></span>100.000</p>
+      <p><span><img src="assets/icons/palu.svg" alt="palu"></span>291(1)jo106,281,288(1)</p>
+      <p><span><img src="assets/icons/dompet.svg" alt="dompet"></span>STNK E-6238-OR</p>
+    </div>
+  </section>
+  <section class="result">
+    <div class="top-content">
+      <h3>Sudarsono Wijayanto</h3>
+      <h4>Sepeda Motor (G 5050050)</h4>
+    </div>
+    <div class="bottom-content">
+      <p><span><img src="assets/icons/uang.svg" alt="uang"></span>100.000</p>
+      <p><span><img src="assets/icons/palu.svg" alt="palu"></span>291(1)jo106,281,288(1)</p>
+      <p><span><img src="assets/icons/dompet.svg" alt="dompet"></span>STNK E-6238-OR</p>
+    </div>
+  </section>
+  <section class="result">
+    <div class="top-content">
+      <h3>Sudarsono Wijayanto</h3>
+      <h4>Sepeda Motor (G 5050050)</h4>
+    </div>
+    <div class="bottom-content">
+      <p><span><img src="assets/icons/uang.svg" alt="uang"></span>100.000</p>
+      <p><span><img src="assets/icons/palu.svg" alt="palu"></span>291(1)jo106,281,288(1)</p>
+      <p><span><img src="assets/icons/dompet.svg" alt="dompet"></span>STNK E-6238-OR</p>
+    </div>
+  </section>
+  <section class="result">
+    <div class="top-content">
+      <h3>Sudarsono Wijayanto</h3>
+      <h4>Sepeda Motor (G 5050050)</h4>
+    </div>
+    <div class="bottom-content">
+      <p><span><img src="assets/icons/uang.svg" alt="uang"></span>100.000</p>
+      <p><span><img src="assets/icons/palu.svg" alt="palu"></span>291(1)jo106,281,288(1)</p>
+      <p><span><img src="assets/icons/dompet.svg" alt="dompet"></span>STNK E-6238-OR</p>
+    </div>
+  </section>
+
+  <!-- <section class="input_section">
+    <form id="inputBook">
+      <label for="inputBookTitle">Judul</label>
+      <input id="inputBookTitle" type="text" />
+      <label for="inputBookAuthor">Penulis</label>
+      <input id="inputBookAuthor" type="text" />
+      <label for="inputBookYear">Tahun</label>
+      <input id="inputBookYear" type="number" />
+      <button id="bookSubmit" type="submit">Tambah buku</button>
+    </form>
+  </section> -->
+
   <div id="bookList" class="book_list" />
-  <script src="js/data.js" type="text/javascript"></script>
-  <script src="js/dom.js" type="text/javascript"></script>
-  <script src="js/main.js" type="text/javascript"></script>
+  <script src="assets/scripts/data.js" type="text/javascript"></script>
+  <script src="assets/scripts/dom.js" type="text/javascript"></script>
+  <script src="assets/scripts/main.js" type="text/javascript"></script>
 </body>
+
 </html>
