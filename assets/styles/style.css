@@ -158,3 +158,7 @@ input::placeholder {
   background-color: transparent;
   border: none;
 }
+
+.search-box button:hover {
+  cursor: pointer;
+}
